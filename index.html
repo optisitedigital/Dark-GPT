@@ -7,7 +7,7 @@
     
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
-    <link rel="shortcut icon" href="logo.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -34,7 +34,6 @@
             overflow: hidden;
         }
 
-        /* HEADER AVEC LOGO ROND */
         header {
             padding: 20px;
             display: flex;
@@ -59,11 +58,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-wrapper:hover {
-            transform: scale(1.05);
         }
 
         header img {
@@ -78,11 +72,8 @@
             letter-spacing: 5px;
             font-weight: 800;
             text-transform: uppercase;
-            color: var(--text);
-            text-shadow: 0 0 10px rgba(255,255,255,0.2);
         }
 
-        /* ZONE DE CHAT */
         #chat-container {
             flex: 1;
             padding: 20px;
@@ -110,7 +101,6 @@
             background: var(--glass);
             border: 1px solid var(--glass-border);
             border-radius: 20px 20px 20px 5px;
-            color: #f1f5f9;
         }
 
         .user-message {
@@ -121,7 +111,6 @@
             box-shadow: 0 8px 20px -5px var(--accent-glow);
         }
 
-        /* INPUT AREA */
         .input-wrapper {
             padding: 20px;
             background: #000;
@@ -137,12 +126,6 @@
             padding: 8px;
             border-radius: 35px;
             border: 1px solid #333;
-            transition: 0.3s;
-        }
-
-        .input-box:focus-within {
-            border-color: var(--accent);
-            background: rgba(255,255,255,0.08);
         }
 
         input {
@@ -153,7 +136,6 @@
             padding-left: 15px;
             font-size: 1rem;
             outline: none;
-            font-family: inherit;
         }
 
         button {
@@ -167,10 +149,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.2s;
         }
-
-        button:hover { transform: scale(1.1); background: #f43f5e; }
 
         .typing {
             text-align: center;
@@ -179,7 +158,6 @@
             margin-bottom: 10px;
             display: none;
             font-weight: bold;
-            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -195,23 +173,23 @@
     <div id="chat-container">
         <div class="message ai-message">
             <i class="fas fa-robot" style="margin-right:8px;"></i>
-            Système <b>Dark GPT</b> en ligne. Je suis prêt pour vos requêtes.
+            Système <b>Dark GPT</b> activé. Prêt à répondre.
         </div>
     </div>
 
     <div class="input-wrapper">
-        <div id="typing-indicator" class="typing">
-            <i class="fas fa-spinner fa-spin"></i> CALCUL EN COURS...
-        </div>
+        <div id="typing-indicator" class="typing">ANALYSE EN COURS...</div>
         <div class="input-box">
-            <input type="text" id="user-input" placeholder="Message..." autocomplete="off">
+            <input type="text" id="user-input" placeholder="Écrire ici..." autocomplete="off">
             <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
-    <script src="config.js"></script>
     <script>
+        // LA CLÉ EST ICI DIRECTEMENT
+        const API_KEY = "AIzaSyChHbpucmGogWmxDctrzoYocQwrPc7NZOc";
         const MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
         const chatContainer = document.getElementById('chat-container');
         const userInput = document.getElementById('user-input');
         const sendBtn = document.getElementById('send-btn');
@@ -232,7 +210,7 @@
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Réponds en tant que Dark GPT, une IA mystérieuse, rapide et pro : " + prompt }] }]
+                        contents: [{ parts: [{ text: "Tu es Dark GPT, une IA mystérieuse. Réponds de façon précise : " + prompt }] }]
                     })
                 });
                 const data = await response.json();
